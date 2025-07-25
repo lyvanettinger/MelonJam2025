@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://6x5aarpa0sqf"]
+
+[ext_resource type="Script" path="res://MainLevel.gd" id="1_nxyn4"]
+[ext_resource type="PackedScene" uid="uid://byw3fdvbubgdk" path="res://Player.tscn" id="1_re7fh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l4l1q"]
+size = Vector3(62.8828, 0.191406, 63.1946)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m1qin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q73g6"]
+albedo_color = Color(0.237362, 0.39492, 0.154927, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_2urh3"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_6dws2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kj8pg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxh8k"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oc272"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68y88"]
+albedo_color = Color(1, 1, 0, 1)
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_nxyn4")
+
+[node name="Plane" type="StaticBody3D" parent="."]
+
+[node name="PlaneCollision" type="CollisionShape3D" parent="Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09045, 0, -0.322021)
+shape = SubResource("BoxShape3D_l4l1q")
+
+[node name="PlaneMesh" type="MeshInstance3D" parent="Plane"]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("PlaneMesh_m1qin")
+surface_material_override/0 = SubResource("StandardMaterial3D_q73g6")
+
+[node name="Boundary" type="StaticBody3D" parent="."]
+
+[node name="BoundaryCollision1" type="CollisionShape3D" parent="Boundary"]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, 0, 0, -30)
+shape = SubResource("WorldBoundaryShape3D_2urh3")
+
+[node name="BoundaryCollision2" type="CollisionShape3D" parent="Boundary"]
+transform = Transform3D(-1.74846e-07, -4, 0, 4, -1.74846e-07, 0, 0, 0, 4, 30, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_6dws2")
+
+[node name="BoundaryCollision3" type="CollisionShape3D" parent="Boundary"]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0, 30)
+shape = SubResource("WorldBoundaryShape3D_2urh3")
+
+[node name="BoundaryCollision4" type="CollisionShape3D" parent="Boundary"]
+transform = Transform3D(-1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0, 0, 4, -30, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_6dws2")
+
+[node name="BoundaryMesh1" type="MeshInstance3D" parent="Boundary"]
+transform = Transform3D(60, 0, 0, 0, 14, 0, 0, 0, 1, 0, 1, -30)
+mesh = SubResource("BoxMesh_kj8pg")
+skeleton = NodePath("../../Plane")
+
+[node name="BoundaryMesh2" type="MeshInstance3D" parent="Boundary"]
+transform = Transform3D(60, 0, 0, 0, 14, 0, 0, 0, 1, 0, 1, 30)
+mesh = SubResource("BoxMesh_kj8pg")
+skeleton = NodePath("../../Plane")
+
+[node name="BoundaryMesh3" type="MeshInstance3D" parent="Boundary"]
+transform = Transform3D(-2.62268e-06, 0, 1, 0, 14, 0, -60, 0, -4.37114e-08, 30, 1, 0)
+mesh = SubResource("BoxMesh_kj8pg")
+skeleton = NodePath("../../Plane")
+
+[node name="BoundaryMesh4" type="MeshInstance3D" parent="Boundary"]
+transform = Transform3D(-2.62268e-06, 0, 1, 0, 14, 0, -60, 0, -4.37114e-08, -30, 1, 0)
+mesh = SubResource("BoxMesh_kj8pg")
+skeleton = NodePath("../../Plane")
+
+[node name="TestPlatforms" type="StaticBody3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TestPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.24752, 1.40846, -3.56584)
+use_collision = true
+size = Vector3(4.2016, 3.00777, 3.97925)
+material = SubResource("StandardMaterial3D_bxh8k")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="TestPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5644, 0.839604, 1.90201)
+use_collision = true
+size = Vector3(2.57056, 1.86507, 2.49878)
+material = SubResource("StandardMaterial3D_oc272")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="TestPlatforms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.68504, 0.44634, 5.07987)
+use_collision = true
+size = Vector3(1.50586, 0.999146, 1.63892)
+material = SubResource("StandardMaterial3D_68y88")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.975423, -0.118557, 0.185725, 0, 0.842903, 0.538065, -0.22034, -0.524841, 0.822188, 2.1269, 2.65614, 4.15581)
+
+[node name="Player" parent="." instance=ExtResource("1_re7fh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.915062, 0)

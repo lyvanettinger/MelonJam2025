@@ -13,7 +13,7 @@ var t_bob = 0.0
 
 # fov variables
 const BASE_FOV = 75.0
-const FOV_CHANGE = 1.5
+const FOV_CHANGE = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8
@@ -36,7 +36,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle jump
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	if Input.is_action_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
 	# Handle sprint
